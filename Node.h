@@ -9,6 +9,8 @@ private:
 	Node* down;
 	Node* column;
 public:
+	static const int NUM_ROWS = 7;
+	static const int NUM_COLS = 7;
 	int numNodes, inRow, inCol;
 
 	Node();
@@ -17,11 +19,11 @@ public:
 
 	//Mutators
 
-	void setLeft(const Node* newPtr);
-	void setRight(const Node* newPtr);
-	void setUp(const Node* newPtr);
-	void setDown(const Node* newPtr);
-	void setColumn(const Node* newPtr);
+	void setLeft(Node* newPtr);
+	void setRight(Node* newPtr);
+	void setUp(Node* newPtr);
+	void setDown(Node* newPtr);
+	void setColumn(Node* newPtr);
 
 	//Acessors
 
@@ -35,7 +37,6 @@ public:
 	int getRightIndex(int ogIndex) const;
 	int getUpIndex(int ogIndex) const;
 	int getDownIndex(int ogIndex) const;
-	int getColumnInndex(int ogIndex) const;
 };
 
 #endif

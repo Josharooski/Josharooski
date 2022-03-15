@@ -35,24 +35,24 @@ Node::~Node() {
 	column = nullptr;
 }
 
-void Node::setLeft(const Node* newPtr) {
-	left = newPtr->up;
+void Node::setLeft(Node* newPtr) {
+	left = newPtr;
 }
 
-void Node::setRight(const Node* newPtr) {
-	right = newPtr->right;
+void Node::setRight(Node* newPtr) {
+	right = newPtr;
 }
 
-void Node::setDown(const Node* newPtr) {
-	down = newPtr->down;
+void Node::setDown(Node* newPtr) {
+	down = newPtr;
 }
 
-void Node::setUp(const Node* newPtr) {
-	up = newPtr->up;
+void Node::setUp(Node* newPtr) {
+	up = newPtr;
 }
 
-void Node::setColumn(const Node* newPtr) {
-	column = newPtr->column;
+void Node::setColumn(Node* newPtr) {
+	column = newPtr;
 }
 
 Node* Node::getLeft() const {
@@ -75,15 +75,15 @@ Node* Node::getColumn() const {
 	return column;
 }
 
-int Node::getLeftIndex(int ogIndex) const {
-	return (ogIndex + 1) % inCol;
+int Node::getRightIndex(int ogIndex) const {
+	return (ogIndex + 1) % NUM_COLS;
 }
 
-int Node::getRightIndex(int ogIndex) const {
+int Node::getLeftIndex(int ogIndex) const {
 	int newIndex;
 
 	if (ogIndex - 1 < 0) {
-		newIndex = inCol - 1;
+		newIndex = NUM_COLS - 1;
 	}
 	else {
 		newIndex = ogIndex - 1;
@@ -96,7 +96,7 @@ int Node::getUpIndex(int ogIndex) const {
 	int newIndex;
 
 	if (ogIndex - 1 < 0) {
-		newIndex = inRow;
+		newIndex = NUM_ROWS;
 	}
 	else {
 		newIndex = ogIndex - 1;
@@ -106,5 +106,5 @@ int Node::getUpIndex(int ogIndex) const {
 }
 
 int Node::getDownIndex(int ogIndex) const {
-	return (ogIndex + 1) % (inRow + 1);
+	return (ogIndex + 1) % (NUM_ROWS + 1);
 }
