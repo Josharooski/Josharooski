@@ -5,7 +5,7 @@ const int NUM_ROWS = 8;
 const int NUM_COLS = 8;
 
 void createBoolTable(bool boolTable[][NUM_COLS]);
-void create_DLX_Matrix(bool boolTable[][NUM_COLS], Node Table[][NUM_COLS], Node* headPtr);
+void create_DLX_Matrix(bool boolTable[][NUM_COLS], Node Table[][NUM_COLS], Node*& headPtr);
 void printBoolTable(bool boolTable[][NUM_COLS]);
 void printTable(Node Table[][NUM_COLS], Node* headPtr);
 
@@ -19,7 +19,7 @@ int main() {
 
 	printBoolTable(boolTable);
 	std::cout << std::endl;
-	printTable(Table, headPtr);
+	//printTable(Table, headPtr);
 }
 
 void createBoolTable(bool boolTable[][NUM_COLS]) {
@@ -55,7 +55,7 @@ void createBoolTable(bool boolTable[][NUM_COLS]) {
 	boolTable[7][3] = true;
 }
 
-void create_DLX_Matrix(bool boolTable[][NUM_COLS], Node Table[][NUM_COLS], Node* headPtr) {
+void create_DLX_Matrix(bool boolTable[][NUM_COLS], Node Table[][NUM_COLS], Node*& headPtr) {
 
 	for (int row = 0; row <= NUM_ROWS; row++) {
 		for (int col = 0; col < NUM_COLS; col++) {
@@ -70,30 +70,30 @@ void create_DLX_Matrix(bool boolTable[][NUM_COLS], Node Table[][NUM_COLS], Node*
 
 				int rowCheck = row;
 				int colCheck = col;
-				while (!boolTable[rowCheck][colCheck] && colCheck != col) {
+				do {
 					colCheck = Table[row][colCheck].getLeftIndex(colCheck);
-				}
+				} while (!boolTable[rowCheck][colCheck] && colCheck != col);
 				Table[row][col].setLeft(&Table[row][colCheck]);
 
 				rowCheck = row;
 				colCheck = col;
-				while (!boolTable[rowCheck][colCheck] && colCheck != col) {
+				do {
 					colCheck = Table[row][colCheck].getRightIndex(colCheck);
-				}
+				} while (!boolTable[rowCheck][colCheck] && colCheck != col);
 				Table[row][col].setRight(&Table[row][colCheck]);
 
 				rowCheck = row;
 				colCheck = col;
-				while (!boolTable[rowCheck][colCheck] && rowCheck != row) {
+				do {
 					rowCheck = Table[rowCheck][col].getUpIndex(rowCheck);
-				}
+				} while (!boolTable[rowCheck][colCheck] && rowCheck != row);
 				Table[row][col].setUp(&Table[rowCheck][col]);
 
 				rowCheck = row;
 				colCheck = col;
-				while (!boolTable[rowCheck][colCheck] && rowCheck != row) {
+				do {
 					rowCheck = Table[rowCheck][col].getDownIndex(rowCheck);
-				}
+				} while (!boolTable[rowCheck][colCheck] && rowCheck != row);
 				Table[row][col].setDown(&Table[rowCheck][col]);
 			}
 		}
@@ -127,17 +127,21 @@ void printTable(Node Table[][NUM_COLS], Node* headPtr) {
 
 	Node* rowPtr;
 	Node* colPtr;
+	Node* ptrInPlace;
 	rowPtr = headPtr->getRight();
 	colPtr = rowPtr->getDown();
+	ptrInPlace = colPtr;
 
-	while (rowPtr != headPtr) {
-		while (colPtr != &Table[rowPtr->inRow][0]) {
+	do { 
+		do {
 			std::cout << '[' << colPtr->inRow << ',';
 			std::cout << colPtr->inCol << "] ";
-			colPtr = colPtr->getDown();
-		}
+			colPtr = colPtr->getRight();
+		} while (colPtr != ptrInPlace);
 		std::cout << std::endl;
 		rowPtr = rowPtr->getRight();
-	}
+		colPtr = &Table[rowPtr->inCol][0];
+		ptrInPlace = colPtr;
+	} while (rowPtr != headPtr->getRight());
 	std::cout << std::endl;
 }
