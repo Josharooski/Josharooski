@@ -19,7 +19,7 @@ int main() {
 
 	printBoolTable(boolTable);
 	std::cout << std::endl;
-	//printTable(Table, headPtr);
+	printTable(Table, headPtr);
 }
 
 void createBoolTable(bool boolTable[][NUM_COLS]) {
@@ -134,13 +134,15 @@ void printTable(Node Table[][NUM_COLS], Node* headPtr) {
 
 	do { 
 		do {
-			std::cout << '[' << colPtr->inRow << ',';
-			std::cout << colPtr->inCol << "] ";
-			colPtr = colPtr->getRight();
+			if(colPtr->inRow){
+				std::cout << '[' << colPtr->inRow << ',';
+				std::cout << colPtr->inCol << "] ";
+			}
+			colPtr = colPtr->getDown();
 		} while (colPtr != ptrInPlace);
 		std::cout << std::endl;
 		rowPtr = rowPtr->getRight();
-		colPtr = &Table[rowPtr->inCol][0];
+		colPtr = rowPtr->getDown();
 		ptrInPlace = colPtr;
 	} while (rowPtr != headPtr->getRight());
 	std::cout << std::endl;
