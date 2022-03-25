@@ -17,11 +17,11 @@ int main() {
 	Node(*Table)[NUM_COLS] = new Node[NUM_ROWS][NUM_COLS];
 
 	createBoolTable(boolTable);
-	create_DLX_Matrix(boolTable, Table, headPtr);
+	//create_DLX_Matrix(boolTable, Table, headPtr);
 
 	printBoolTable(boolTable);
-	std::cout << std::endl;
-	printTable(Table, headPtr);
+	//std::cout << std::endl;
+	//printTable(Table, headPtr);
 }
 
 void createBoolTable(bool boolTable[][NUM_COLS]) {

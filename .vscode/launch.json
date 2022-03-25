@@ -5,11 +5,15 @@
     "version": "0.2.0",
     "configurations": [
 
+
+        
+
+
         {
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "C:/Users/Josh/Documents/GitHub/Josharooski/C++/MatrixSolver_DLX.cpp",
+            "program": "C:/Users/Josh/Documents/GitHub/Josharooski/main.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
@@ -24,39 +28,6 @@
                     "ignoreFailures": true
                 }
             ]
-        },
-
-        {
-            "name": "Launch Program",
-            "program": "C:/Users/Josh/Documents/GitHub/Josharooski/MatrixSolver_DLX.cpp",
-            "request": "launch",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "pwa-node"
-        },
-        {
-            "name": "(Windows) Launch",
-            "type": "cppvsdbg",
-            "request": "launch",
-            "program": "enter program name, for example ${workspaceFolder}/a.exe",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "console": "externalTerminal"
-        },
-        {
-            "name": "cl.exe - Build and debug active file",
-            "type": "cppvsdbg",
-            "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "console": "externalTerminal",
-            "preLaunchTask": "C/C++: cl.exe build active file"
         }
     ]
 }
