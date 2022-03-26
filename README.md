@@ -1,7 +1,7 @@
 - 👋 Hi, I’m @Josharooski
 - 👀 I’m interested in game development
 - 🌱 I’m currently learning C++
-- 💞️ I’m looking to collaborate on ...
+- 💞️ I’m looking to collaborate on anything. Just ask!
 - 📫 How to reach me jgilstrap23@gmail.com
 
 <!---
