@@ -1,53 +1,59 @@
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
+#include <random> //for RNG engine/distribution
 #include "Node.h"
 
-const int NUM_ROWS = 8;
-const int NUM_COLS = 8;
+const int ROWS = 8;
+const int COLS = 8;
+const double RANDOM_SD = 20.0; //Standard deviation for RNG
+const double RANDOM_MEAN = 49.5; //Mean for RNG 
 
-void createBoolTable(bool boolTable[][NUM_COLS]);
-void create_DLX_Matrix(bool boolTable[][NUM_COLS], Node Table[][NUM_COLS], Node*& headPtr);
-void printBoolTable(bool boolTable[][NUM_COLS]);
-void printTable(Node Table[][NUM_COLS], Node* headPtr);
+void createBoolTable(bool boolTable[][COLS]);
+void create_DLX_Matrix(bool boolTable[][COLS], Node Table[][COLS], Node*& headPtr);
+void printBoolTable(bool boolTable[][COLS]);
+void printTable(Node Table[][COLS], Node* headPtr);
 
 int main() {
 	Node* headPtr = new Node();
-	bool(*boolTable)[NUM_COLS] = new bool[NUM_ROWS][NUM_COLS];
-	Node(*Table)[NUM_COLS] = new Node[NUM_ROWS][NUM_COLS];
+	bool(*boolTable)[COLS] = new bool[ROWS][COLS];
+	Node(*Table)[COLS] = new Node[ROWS][COLS];
 
 	createBoolTable(boolTable);
-	//create_DLX_Matrix(boolTable, Table, headPtr);
-
 	printBoolTable(boolTable);
-	//std::cout << std::endl;
-	//printTable(Table, headPtr);
+	create_DLX_Matrix(boolTable, Table, headPtr);
+
+	std::cout << std::endl;
+	printTable(Table, headPtr);
 }
 
-void createBoolTable(bool boolTable[][NUM_COLS]) {
-	srand(time(0));
+void createBoolTable(bool boolTable[][COLS]) {
+	std::default_random_engine engine;
+	std::normal_distribution<double> norm(RANDOM_MEAN, RANDOM_SD);
 
-	for (int row = 0; row <= NUM_ROWS; row++) {
-		for (int col = 0; col < NUM_COLS; col++) {
+	for (int row = 0; row <=ROWS; row++) {
+		for (int col = 0; col <COLS; col++) {
 			if (row == 0) {
 				boolTable[row][col] = true;
 			}
 			else {
-				if(rand() % 2 == 0){
-					boolTable[row][col] = true;
+				int num = norm(engine);
+				if (num < 0) {
+					num *= -1;
+				}
+				if(num < 75 && num > 25){
+					boolTable[row][col] = false;
 				}
 				else {
-					boolTable[row][col] = false;
+					boolTable[row][col] = true;
 				}
 			}
 		}
 	}
 }
 
-void create_DLX_Matrix(bool boolTable[][NUM_COLS], Node Table[][NUM_COLS], Node*& headPtr) {
+void create_DLX_Matrix(bool boolTable[][COLS], Node Table[][COLS], Node*& headPtr) {
 
-	for (int row = 0; row <= NUM_ROWS; row++) {
-		for (int col = 0; col < NUM_COLS; col++) {
+	for (int row = 0; row <=ROWS; row++) {
+		for (int col = 0; col <COLS; col++) {
 			if (boolTable[row][col]) {
 				if (row) {
 					Table[0][col].numNodes++;
@@ -89,16 +95,16 @@ void create_DLX_Matrix(bool boolTable[][NUM_COLS], Node Table[][NUM_COLS], Node*
 	}
 
 	headPtr->setRight(&Table[0][0]);
-	headPtr->setLeft(&Table[0][NUM_COLS - 1]);
+	headPtr->setLeft(&Table[0][COLS - 1]);
 
 	Table[0][0].setLeft(headPtr);
-	Table[0][NUM_COLS - 1].setRight(headPtr);
+	Table[0][COLS - 1].setRight(headPtr);
 }
 
-void printBoolTable(bool boolTable[][NUM_COLS]) {
+void printBoolTable(bool boolTable[][COLS]) {
 	std::cout << "Bool Table:" << std::endl;
-	for (int row = 0; row <= NUM_ROWS; row++) {
-		for (int col = 0; col < NUM_COLS; col++) {
+	for (int row = 0; row <= ROWS; row++) {
+		for (int col = 0; col < COLS; col++) {
 			if (boolTable[row][col]) {
 				std::cout << "1 ";
 			}
@@ -111,7 +117,7 @@ void printBoolTable(bool boolTable[][NUM_COLS]) {
 	std::cout << std::endl;
 }
 
-void printTable(Node Table[][NUM_COLS], Node* headPtr) {
+void printTable(Node Table[][COLS], Node* headPtr) {
 	std::cout << "Node Coordinates: " << std::endl;
 
 	Node* rowPtr;
@@ -119,20 +125,24 @@ void printTable(Node Table[][NUM_COLS], Node* headPtr) {
 	Node* ptrInPlace;
 	rowPtr = headPtr->getRight();
 	colPtr = rowPtr->getDown();
-	ptrInPlace = colPtr;
+	ptrInPlace = rowPtr;
 
 	do { 
 		do {
 			if(colPtr->inRow){
-				std::cout << '[' << colPtr->inRow << ',';
-				std::cout << colPtr->inCol << "] ";
+				std::cout << '[' << colPtr->inCol + 1 << ',';
+				std::cout << colPtr->inRow << "] ";
 			}
 			colPtr = colPtr->getDown();
 		} while (colPtr != ptrInPlace);
 		std::cout << std::endl;
 		rowPtr = rowPtr->getRight();
 		colPtr = rowPtr->getDown();
-		ptrInPlace = colPtr;
-	} while (rowPtr != headPtr->getRight());
+		ptrInPlace = rowPtr;
+	} while (rowPtr != headPtr);
 	std::cout << std::endl;
+
+	rowPtr = nullptr;
+	colPtr = nullptr;
+	ptrInPlace = nullptr;
 }

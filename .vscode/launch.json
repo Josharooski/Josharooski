@@ -13,7 +13,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "C:/Users/Josh/Documents/GitHub/Josharooski/main.exe",
+            "program": "C:/Users/Josh/Documents/GitHub/Josharooski/solver.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

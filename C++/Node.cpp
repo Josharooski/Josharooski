@@ -1,5 +1,8 @@
 #include "Node.h"
 
+const int ROWS = 8;
+const int COLS = 8;
+
 Node::Node() {
 	left = nullptr;
 	right = nullptr;
@@ -75,15 +78,15 @@ Node* Node::getColumn() const {
 	return column;
 }
 
-int Node::getRightIndex(int ogIndex) const {
-	return (ogIndex + 1) % NUM_COLS;
+int Node::getRightIndex(int ogIndex) const{
+	return (ogIndex + 1) % COLS;
 }
 
-int Node::getLeftIndex(int ogIndex) const {
+int Node::getLeftIndex(int ogIndex) const{
 	int newIndex;
 
 	if (ogIndex - 1 < 0) {
-		newIndex = NUM_COLS - 1;
+		newIndex = COLS - 1;
 	}
 	else {
 		newIndex = ogIndex - 1;
@@ -96,7 +99,7 @@ int Node::getUpIndex(int ogIndex) const {
 	int newIndex;
 
 	if (ogIndex - 1 < 0) {
-		newIndex = NUM_ROWS;
+		newIndex = ROWS;
 	}
 	else {
 		newIndex = ogIndex - 1;
@@ -106,5 +109,5 @@ int Node::getUpIndex(int ogIndex) const {
 }
 
 int Node::getDownIndex(int ogIndex) const {
-	return (ogIndex + 1) % (NUM_ROWS + 1);
+	return (ogIndex + 1) % (ROWS + 1);
 }

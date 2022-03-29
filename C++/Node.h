@@ -9,8 +9,6 @@ private:
 	Node* down;
 	Node* column;
 public:
-	static const int NUM_ROWS = 7;
-	static const int NUM_COLS = 7;
 	int numNodes, inRow, inCol;
 
 	Node();
