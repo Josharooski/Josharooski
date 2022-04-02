@@ -12,6 +12,7 @@ Node::Node() {
 	numNodes = 0;
 	inRow = 0;
 	inCol = 0;
+	name = '\0';
 }
 
 Node::Node(const Node& copyMe) {

@@ -10,6 +10,7 @@ private:
 	Node* column;
 public:
 	int numNodes, inRow, inCol;
+	char name;
 
 	Node();
 	Node(const Node& copyMe);
