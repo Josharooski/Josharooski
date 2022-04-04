@@ -20,7 +20,10 @@ and 2D node array (called Table) are printed out for debugging/tracking. The boo
 is pretty self-explanatory but the Table is printed using the coordinates of each active node.
 Each row is on it's own line and is printed "backwards" by formatting to [column, row]. The
 boolean table is to be read from the top-left to top-right with each row extending downward
-from the column header.
+from the column header. Note: This method won't be used long-term, it's only to prevent having
+to hard-code different use cases for developing the Table creation algorithm. There's also a bug
+that sometimes causes one or more column to have no 1s. Rather than fix this I just have a 
+special case in create_DLX_Matrix() that adds a node to an empty list.
 
 The first node in each column is always active and acts as a header. The linked lists in this
 program are circular so it's important to know where to start and end. So the column headers

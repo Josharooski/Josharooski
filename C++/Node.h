@@ -10,8 +10,8 @@ private:
 	Node* column;
 public:
 	int numNodes, inRow, inCol;
-	char name;
-
+	//char name;
+	
 	Node();
 	Node(const Node& copyMe);
 	~Node();
@@ -23,6 +23,7 @@ public:
 	void setUp(Node* newPtr);
 	void setDown(Node* newPtr);
 	void setColumn(Node* newPtr);
+	//void setName(char newName);
 
 	//Acessors
 
@@ -31,6 +32,7 @@ public:
 	Node* getUp() const;
 	Node* getDown() const;
 	Node* getColumn() const;
+	//char getName() const;
 
 	int getLeftIndex(int ogIndex) const;
 	int getRightIndex(int ogIndex) const;

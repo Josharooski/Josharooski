@@ -12,7 +12,7 @@ Node::Node() {
 	numNodes = 0;
 	inRow = 0;
 	inCol = 0;
-	name = '\0';
+	//name = '\0';
 }
 
 Node::Node(const Node& copyMe) {
@@ -24,6 +24,7 @@ Node::Node(const Node& copyMe) {
 	numNodes = copyMe.numNodes;
 	inRow = copyMe.inRow;
 	inCol = copyMe.inCol;
+	//name = copyMe.name;
 }
 
 Node::~Node() {
@@ -59,6 +60,10 @@ void Node::setColumn(Node* newPtr) {
 	column = newPtr;
 }
 
+/*void Node::setName(char newName) {
+	name = newName;
+}*/
+
 Node* Node::getLeft() const {
 	return left;
 }
@@ -78,6 +83,10 @@ Node* Node::getDown() const {
 Node* Node::getColumn() const {
 	return column;
 }
+
+/*char Node::getName() const {
+	return name;
+}*/
 
 int Node::getRightIndex(int ogIndex) const{
 	return (ogIndex + 1) % COLS;
