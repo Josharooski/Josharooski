@@ -40,8 +40,6 @@ int main() {
 
 
 void createBoolTable(bool boolTable[][COLS]) {
-	bool hasValue = false;
-
 	for (int row = 0; row <= ROWS; row++) {
 		for (int col = 0; col < COLS; col++) {
 			if (row == 0) {
@@ -57,7 +55,6 @@ void createBoolTable(bool boolTable[][COLS]) {
 				}
 				else {
 					boolTable[row][col] = true;
-					hasValue = true;
 				}
 			}
 		}
@@ -117,12 +114,12 @@ void create_DLX_Matrix(bool boolTable[][COLS], Node Table[][COLS], Node*& headPt
 	Table[0][COLS - 1].setRight(headPtr);
 
 	Node* zeroCheck = headPtr->getRight();
+	Node* newNode = nullptr;
 	while(zeroCheck != headPtr) {
 		if(zeroCheck->numNodes == 0) {
 			int randRowIndex = norm(engine);
 			randRowIndex = (randRowIndex % COLS) + COLS;
-			Table[randRowIndex][zeroCheck->inCol];
-			while()
+			newNode = &Table[randRowIndex][zeroCheck->inCol];
 		}
 		zeroCheck = zeroCheck->getRight();
 	}
